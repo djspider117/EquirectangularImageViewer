@@ -48,7 +48,7 @@ using namespace DirectX::SimpleMath;
 
 EquirectangularViewer::EquirectangularViewer() :
 	_indexCount(0),
-	_fov(65)
+	_fov(70)
 {
 	critical_section::scoped_lock lock(_criticalSection);
 	CreateDeviceIndependentResources();
@@ -168,7 +168,27 @@ void EquirectangularViewer::Render()
 	_effect->SetWorld(_world);
 	_shape->Draw(_effect.get(), _inputLayout.Get());
 
+
+
+	float aspectRatio = _renderTargetWidth / _renderTargetHeight;
+	float fovAngle = CalculateFov();
+
+	_proj = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(fovAngle, aspectRatio, 0.1f, 1000.f);
+	_effect->SetProjection(_proj);
+
 	Present();
+}
+
+float EquirectangularImageViewer::EquirectangularViewer::CalculateFov()
+{
+	float fovAngle = _fov * XM_PI / 180.0f;
+	if (fovAngle >= XM_PI)
+		_fov = XM_PI - 0.001f;
+
+	if (fovAngle <= 0)
+		fovAngle = 1;
+
+	return fovAngle;
 }
 
 #pragma endregion
@@ -234,14 +254,19 @@ void EquirectangularViewer::CreateSizeDependentResources()
 
 	float aspectRatio = _renderTargetWidth / _renderTargetHeight;
 
-	float fovAngleY = 70.0f * XM_PI / 180.0f;
-	if (aspectRatio < 1.0f)
+	float fovAngle = _fov * XM_PI / 180.0f;
+	if (fovAngle >= XM_PI)
 	{
-		fovAngleY /= aspectRatio;
+		_fov = XM_PI - 0.001f;
+	}
+
+	if (fovAngle <= 0)
+	{
+		fovAngle = 1;
 	}
 
 	_view = DirectX::SimpleMath::Matrix::CreateLookAt(Vector3(0.f, 0.f, 0.1f), Vector3::Zero, Vector3::UnitY);
-	_proj = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.3f, aspectRatio, 0.1f, 1000.f);
+	_proj = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(fovAngle, aspectRatio, 0.1f, 1000.f);
 
 	_effect->SetView(_view);
 	_effect->SetProjection(_proj);

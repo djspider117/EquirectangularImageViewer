@@ -12,5 +12,8 @@
         <equirectangularimageviewer:EquirectangularViewer x:Name="swapChain"
                                                           ManipulationMode="All"
                                                           ManipulationDelta="SwapChain_ManipulationDelta" />
+
+        <Button x:Name="btnTestFov" Content="Change FOV To Random" 
+                Click="btnTestFov_Click"/>
     </Grid>
 </Page>

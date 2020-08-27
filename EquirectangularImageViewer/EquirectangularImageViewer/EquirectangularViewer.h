@@ -13,6 +13,7 @@ namespace EquirectangularImageViewer
 	private protected:
 
 		virtual void Render() override;
+		virtual float CalculateFov();
 		virtual void CreateDeviceResources() override;
 		virtual void CreateSizeDependentResources() override;
 		virtual void OnDeviceLost() override;

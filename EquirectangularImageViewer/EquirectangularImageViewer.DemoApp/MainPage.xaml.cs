@@ -23,6 +23,10 @@ namespace EquirectangularImageViewer.DemoApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        private int[] _fovs = new int[] { 40, 50, 60, 65, 70, 75, 80 };
+        private int _fovIndex;
+
         public double Sensitivity
         {
             get { return (double)GetValue(SensitivityProperty); }
@@ -165,6 +169,15 @@ namespace EquirectangularImageViewer.DemoApp
             Yaw = swapChain.Yaw;
             Pitch = swapChain.Pitch;
             Roll = swapChain.Roll;
+        }
+
+        private void btnTestFov_Click(object sender, RoutedEventArgs e)
+        {
+            swapChain.FieldOfView = _fovs[_fovIndex];
+            _fovIndex++;
+
+            if (_fovIndex >= _fovs.Length)
+                _fovIndex = 0;
         }
     }
 }
