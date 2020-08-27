@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>d7d9694d-9ba5-4b88-b7e7-9fbd12666586</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{180927ad-5be4-47a5-86e5-f78c6e3b33a1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="DirectXPanelBase.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="EquirectangularViewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="DirectXHelper.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXPanelBase.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStructures.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="StepTimer.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="EquirectangularViewer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
