@@ -117,7 +117,21 @@ void EquirectangularViewer::LoadTexture(Platform::String^ path)
 					UINT len;
 					PBYTE pData = GetPointerToPixelData(buff, &len);
 
-					ThrowIfFailed(CreateWICTextureFromMemory(_d3dDevice.Get(), pData, len, nullptr, _texture.ReleaseAndGetAddressOf()));
+					auto result = CreateWICTextureFromMemoryEx(
+						_d3dDevice.Get(), //device
+						pData, //pixel data
+						len, //pixel data size
+						len, //max size
+						D3D11_USAGE_DEFAULT, //usage flags
+						D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET, //bind flags
+						D3D11_CPU_ACCESS_READ, //cpu flags
+						NULL, //misc flags
+						WIC_LOADER_IGNORE_SRGB, //loader flags
+						nullptr, //texture pointer, null because we use shader resource
+						_texture.ReleaseAndGetAddressOf() //texture as shader resource (comptr)
+					);
+
+					ThrowIfFailed(result);
 					_effect->SetTexture(_texture.Get());
 				});
 		});
