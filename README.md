@@ -2,7 +2,7 @@
 Via nuget: https://www.nuget.org/packages/EquirectangularImageViewer.UWP/
 
 Install it via the NuGet package manager or running:
-`Install-Package EquirectangularImageViewer.UWP -Version 1.0.2`
+`Install-Package EquirectangularImageViewer.UWP -Version 1.0.3`
 
 # EquirectangularImageViewer
 A UWP 360 image viewer that will wrap your image onto a sphere. You have control over pitch/yaw/roll and also FOV.
